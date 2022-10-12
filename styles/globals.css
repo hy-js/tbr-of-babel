@@ -1,0 +1,183 @@
+:root {
+  --color-cream: #fffff8;
+  --color-black: #353535;
+  --color-clay: #789090;
+  --color-turquoise: #b8e8d6;
+  --color-purple: #98657a;
+  --color-yellow: #ffffad;
+  --color-blue: #adcce9;
+  --color-error: #eb5757;
+  --color-success: #92d891;
+  --color-grey: #8a8a8a;
+  --transition: 0.25s all ease;
+  --transition-image: 0.75s all ease;
+
+  /* Static for colors that don't change in dark mode */
+  --static-cream: #fffff8;
+  --static-black: #353535;
+}
+
+[data-theme="light"] {
+  --logo-color: invert(0);
+  --color-cream: #fffff8;
+  --color-black: #353535;
+  --nav-color: #fffff810;
+  --drop-shadow-light: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.05));
+  --drop-shadow: drop-shadow(0px 0px 25px rgba(0, 0, 0, 0.15));
+}
+
+[data-theme="dark"] {
+  --logo-color: invert(1) brightness(1.2);
+  --color-black: #fffff8;
+  --color-cream: #353535;
+  --nav-color: #35353598;
+  --drop-shadow-light: drop-shadow(-5px 0px 10px rgba(255, 255, 255, 0.05));
+  --drop-shadow: drop-shadow(-5px 0px 30px rgba(255, 255, 255, 0.125));
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&display=swap");
+
+.sidebar {
+  width: 25%;
+  height: 25vh;
+  min-height: 200px;
+  overflow: auto;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 5%;
+}
+
+.main {
+  height: 200vh;
+  min-height: 1000px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main,
+.sidebar {
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: #f8f8a5;
+  color: var(--static-black);
+}
+
+html {
+  background: var(--color-cream);
+}
+
+body {
+  -webkit-text-size-adjust: 100%;
+}
+
+body,
+main {
+  margin: 0;
+  overscroll-behavior: none;
+  /* transition: var(--transition); */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+small,
+label {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: var(--color-black);
+}
+
+/* See font sizing scales in layout.js */
+h1 {
+  font-family: "Castoro", serif;
+  font-weight: 100;
+}
+
+h2 {
+  font-family: "Castoro", serif;
+  font-weight: 100;
+}
+
+h3 {
+  font-family: "Castoro", serif;
+  font-weight: 100;
+}
+h4 {
+  font-family: "Castoro", serif;
+  font-weight: 100;
+}
+h5 {
+  font-family: "Castoro", serif;
+  font-weight: normal;
+}
+h6 {
+  font-family: "Castoro", serif;
+  font-weight: 100;
+}
+
+p,
+ul,
+li {
+  font-family: "Castoro", serif;
+  font-weight: 300;
+}
+
+p > i {
+  font-family: "Castoro", serif;
+}
+
+ul {
+  list-style-type: none;
+}
+
+blockquote {
+  font-family: "Castoro", serif;
+  font-weight: 100;
+  border-left: 2px solid var(--color-purple);
+  padding-left: 1rem;
+  margin-left: 1rem;
+}
+
+small {
+  font-family: "Castoro", serif;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+input,
+select {
+  background-color: #f0e8dd;
+  display: inline-block;
+  padding: 20px 15px;
+  font-size: 1.2rem;
+  width: 500px;
+  border-radius: 0;
+  -webkit-appearance: none;
+  font-family: "Castoro", serif;
+}
+.navigation-underline {
+  background-color: #f0e8dd;
+}
