@@ -1,14 +1,28 @@
+import { useEffect, useState } from "react"
 import Head from "next/head"
 import Image from "next/image"
-
 import { breakpoints } from "../utils/breakpoints"
 import styled from "styled-components"
-import { useContext } from "react"
-import CartContext from "../context/cart/CartContext"
+import useCart from "../store/store"
 import { OLBOOK } from "@/lib/types"
 
 export default function Create() {
-  const { cartItems, removeItem } = useContext(CartContext)
+  // zustand
+  const cart = useCart((state) => state.cartContent)
+  const removeFromCart = useCart((state) => state.removeFromCart)
+  const [mycart, setCart] = useState([])
+
+  const clearCart = useCart((state) => state.clearCart)
+  const [mytotalqty, setTotalqty] = useState()
+
+  const totalqty = cart.length
+
+  useEffect(() => {
+    setCart(cart)
+    setTotalqty(totalqty)
+  }, [cart])
+
+  console.log(cart)
 
   return (
     <>
@@ -20,42 +34,47 @@ export default function Create() {
         <HeaderWrapper>
           <a href='/'>
             <Image
-              src='/bookshelf.png'
+              src='/babel-tall.jpg'
               alt='Bookshelf at Yale'
-              width={452}
-              height={324}
+              width={324}
+              height={452}
             />
           </a>
           <DescriptionWrapper>
-            <h1>Cart ({cartItems.length})</h1>
+            <h1>Cart</h1>
+
             <p>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis
               numquam odio incidunt unde saepe aliquam reprehenderit a ipsum
-              aspernatur eaque, soluta culpa dolore! Optio est, assumenda
-              officia atque ratione architecto!
+              aspernatur eaque, soluta culpa dolore!
             </p>
+            {cart.length > 0 && (
+              <>
+                <button onClick={clearCart}>
+                  <h2>Clear Cart</h2>
+                </button>
+              </>
+            )}
+            <ListWrapper>
+              {mycart.map((item: OLBOOK) => (
+                <div key={item.key} className='book'>
+                  <p>{item.author_name?.[0]}</p>
+                  <h2>{item.title}</h2>
+                  {/* <button onClick={() => removeFromCart(item.key)}>
+                    Remove
+                  </button> */}
+                </div>
+              ))}
+              {cart.length > 0 && (
+                <>
+                  <button onClick={clearCart}>
+                    <h2>Save Cart</h2>
+                  </button>
+                </>
+              )}
+            </ListWrapper>
           </DescriptionWrapper>
         </HeaderWrapper>
-        <InputWrapper>
-          {cartItems && (
-            <>
-              <ListWrapper>
-                <ul className='booklist'>
-                  {cartItems.map((book: OLBOOK) => (
-                    <li
-                      key={book.key}
-                      className='book'
-                      onClick={() => removeItem(book.key)}>
-                      <h4>{book.author_name?.[0]}</h4>
-                      <h2>{book.title}</h2>
-                    </li>
-                  ))}
-                </ul>
-              </ListWrapper>
-            </>
-          )}
-          <hr />
-        </InputWrapper>
       </PageWrapper>
     </>
   )
@@ -65,15 +84,6 @@ const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  * {
-    color: #0032a1;
-  }
-
-  a {
-    color: #20d152;
-    padding: 0;
-  }
 `
 const HeaderWrapper = styled.div`
   max-width: 600px;
@@ -112,55 +122,8 @@ const DescriptionWrapper = styled.div`
   }
 `
 
-const BabelWrapper = styled.div`
-  h2 {
-    margin-top: 0rem;
-    margin-bottom: 1rem;
-  }
-
-  .shelves {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  }
-
-  .shelf {
-    background-color: #f0e8dd;
-    border: 1px solid black;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 0.8rem;
-    padding-right: 0.8rem;
-    margin: 0.5rem;
-  }
-
-  .shelf:hover {
-    background-color: antiquewhite;
-  }
-`
-
-const InputWrapper = styled.div`
-  max-width: 500px;
-
-  .results {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .in-shelf {
-    color: #05a100;
-  }
-`
 const ListWrapper = styled.div`
-  ul {
-    margin: 0.2rem;
-    padding: 0;
-    list-style-type: none;
-  }
   .book {
-    padding: 0.25rem;
-  }
-
-  .book:hover {
-    background-color: antiquewhite;
+    padding: 1rem 0;
   }
 `

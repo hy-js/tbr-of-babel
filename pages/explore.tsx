@@ -1,45 +1,35 @@
 import Head from "next/head"
 import Image from "next/image"
-
 import { breakpoints } from "../utils/breakpoints"
-import styled, { keyframes } from "styled-components"
+import styled from "styled-components"
 
-export default function Home() {
+export default function Create() {
   return (
     <>
       <Head>
         <title>TBR of Babel</title>
-        <meta name='description' content='TBR of Babel | Home' />
+        <meta name='description' content='TBR of Babel | Explore' />
       </Head>
       <PageWrapper>
         <HeaderWrapper>
-          <Image
-            src='/tower.jpg'
-            alt='Tower of Babel illustration'
-            width={452}
-            height={324}
-          />
+          <a href='/'>
+            <Image
+              src='/babel-people.jpg'
+              alt='Destruction of the Tower of Babel illustration'
+              width={452}
+              height={324}
+            />
+          </a>
           <DescriptionWrapper>
-            <h1>TBR of Babel</h1>
+            <h1>Explore</h1>
             <p>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis
               numquam odio incidunt unde saepe aliquam reprehenderit a ipsum
               aspernatur eaque, soluta culpa dolore! Optio est, assumenda
               officia atque ratione architecto!
             </p>
-            {/* <a href='/create'>Create Shelf→</a> */}
           </DescriptionWrapper>
         </HeaderWrapper>
-        {/* <BabelWrapper>
-          <h2>Public Shelves:</h2>
-          <div className='shelves'>
-            {Array.apply(null, { length: 15 }).map((e, i) => (
-              <span className='shelf' key={i}>
-                {i + 1}
-              </span>
-            ))}
-          </div>
-        </BabelWrapper> */}
       </PageWrapper>
     </>
   )
@@ -49,7 +39,6 @@ const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
 `
 const HeaderWrapper = styled.div`
   max-width: 600px;
@@ -88,28 +77,29 @@ const DescriptionWrapper = styled.div`
   }
 `
 
-const BabelWrapper = styled.div`
-  h2 {
-    margin-top: 0rem;
-    margin-bottom: 1rem;
+const InputWrapper = styled.div`
+  max-width: 500px;
+
+  .results {
+    display: flex;
+    justify-content: space-between;
   }
 
-  .shelves {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  .in-shelf {
+    color: #05a100;
+  }
+`
+const ListWrapper = styled.div`
+  ul {
+    margin: 0.2rem;
+    padding: 0;
+    list-style-type: none;
+  }
+  .book {
+    padding: 0.25rem;
   }
 
-  .shelf {
-    background-color: #f0e8dd;
-    border: 1px solid black;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 0.8rem;
-    padding-right: 0.8rem;
-    margin: 0.5rem;
-  }
-
-  .shelf:hover {
+  .book:hover {
     background-color: antiquewhite;
   }
 `

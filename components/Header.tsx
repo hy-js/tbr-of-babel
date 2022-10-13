@@ -1,21 +1,22 @@
 import Link from "next/link"
+import { useEffect, useState } from "react"
 import { AnimateSharedLayout, motion } from "framer-motion"
 import { useRouter } from "next/dist/client/router"
 import { isActiveLink } from "../lib/utils"
 import styled from "styled-components"
 import { breakpoints } from "../utils/breakpoints"
-import { useContext } from "react"
-import CartContext from "../context/cart/CartContext"
+
+import useCart from "../store/store"
 
 const links: { name: string; href: string }[] = [
   {
     name: "Home",
     href: "/"
   },
-  // {
-  //   name: "Explore",
-  //   href: "/tower"
-  // },
+  {
+    name: "Explore",
+    href: "/explore"
+  },
   {
     name: "Create",
     href: "/create"
@@ -23,16 +24,31 @@ const links: { name: string; href: string }[] = [
 ]
 
 const Header = () => {
-  const { cartItems, showHideCart } = useContext(CartContext)
   const router = useRouter()
+  const cart = useCart((state) => state.cartContent)
+  const totalqty = cart.length
+
+  const [mytotalqty, setTotalqty] = useState()
+
+  useEffect(() => {
+    setTotalqty(totalqty)
+  }, [cart])
+
   return (
     <HeaderWrapper>
       <header>
         <AnimateSharedLayout>
+          <a href='https://www.rhysad.com/'>
+            <div className='logo'>
+              <h2>
+                TBR <br /> OF BABEL
+              </h2>
+            </div>
+          </a>
           <nav>
             {links.map(({ name, href }) => (
               <Link key={name} href={href}>
-                <a className='mr-6 sm:mr-8 flex flex-col relative'>
+                <a>
                   <h2>{name}</h2>
                   {isActiveLink(href, router.pathname) && (
                     <motion.div
@@ -44,19 +60,13 @@ const Header = () => {
                 </a>
               </Link>
             ))}
+            <hr />
+            <a>
+              <Link href='/cart'>
+                <h2>Cart ({mytotalqty})</h2>
+              </Link>
+            </a>
           </nav>
-          <hr />
-          <Link href={"/cart"}>
-            <h2>
-              Cart
-              {cartItems.length > 0 && <span> ({cartItems.length})</span>}
-            </h2>
-          </Link>
-          {/* <ul>
-            {cartItems.map((item) => (
-              <CartItem key={item._id} item={item} />
-            ))}
-          </ul> */}
         </AnimateSharedLayout>
       </header>
     </HeaderWrapper>
@@ -66,8 +76,8 @@ const Header = () => {
 export default Header
 
 const HeaderWrapper = styled.div`
-  width: 300px;
-  height: 20vh;
+  width: 200px;
+  height: 25vh;
   min-height: auto;
   overflow: auto;
   position: -webkit-sticky;
@@ -77,6 +87,15 @@ const HeaderWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  .logo {
+    font-weight: 700;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+    padding: 0.2rem;
+    background-color: white;
+    color: black;
+  }
 
   @media (max-width: ${breakpoints.s}px) {
     flex-direction: column;

@@ -3,12 +3,10 @@ import type { AppProps } from "next/app"
 import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion"
 import { ThemeProvider } from "next-themes"
 import Header from "@/components/Header"
-import CartState from "@/context/cart/CartState"
 
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
   return (
     <ThemeProvider defaultTheme='system' enableSystem disableTransitionOnChange>
-      <CartState>
         <LazyMotion features={domAnimation}>
           <div className='wrapper'>
             <Header />
@@ -28,7 +26,6 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
             </AnimatePresence>
           </div>
         </LazyMotion>
-      </CartState>
     </ThemeProvider>
   )
 }

@@ -4,10 +4,8 @@ import styled from "styled-components"
 
 import { OLBOOK } from "../lib/types"
 
-// Context
-import { useContext } from "react"
-import CartContext from "../context/cart/CartContext"
-import Link from "next/link"
+// Zustand
+import useCart from "@/store/store"
 
 const Searchbar = () => {
   // Search
@@ -36,23 +34,23 @@ const Searchbar = () => {
     }
   }, [debouncedSearch])
 
-  const { cartItems, addToCart } = useContext(CartContext)
+  // Cart functionalities
+  const addTocart = useCart((state) => state.addTocart)
+  const updatecart = useCart((state) => state.updatecart)
+  const mycart = useCart((state) => state.cartContent)
+  const addProduct = (params: any) => {
+    const product = mycart.findIndex((item: OLBOOK) => item.key === params.id)
+    if (product !== -1) {
+      mycart[product].quantity++
+      updatecart({ params, mycart })
+    } else {
+      addTocart(params)
+    }
+  }
 
   return (
     <>
       <InputWrapper>
-        <div className='results'>
-          {debouncedSearch && (
-            <>
-              <h2>{books.length} Found</h2>
-              {cartItems.length > 0 && (
-                <Link href={"/cart"}>
-                  <h2 className='in-shelf'>{cartItems.length} Added</h2>
-                </Link>
-              )}
-            </>
-          )}
-        </div>
         <input
           autoFocus
           type='search'
@@ -68,7 +66,7 @@ const Searchbar = () => {
                   <li
                     key={book.key}
                     className='book'
-                    onClick={() => addToCart(book)}>
+                    onClick={() => addProduct(book)}>
                     <h4>{book.author_name?.[0]}</h4>
                     <h2>{book.title}</h2>
                   </li>
@@ -78,19 +76,6 @@ const Searchbar = () => {
           </>
         )}
         <hr />
-        <ListWrapper>
-          <ul>
-            {cartItems.map((book: OLBOOK) => (
-              <li
-                key={book.key}
-                className='book'
-                onClick={() => addToCart(book.key)}>
-                <h4>{book.author_name?.[0]}</h4>
-                <h2>{book.title}</h2>
-              </li>
-            ))}
-          </ul>
-        </ListWrapper>
       </InputWrapper>
     </>
   )
@@ -100,15 +85,6 @@ export default Searchbar
 
 const InputWrapper = styled.div`
   max-width: 500px;
-
-  .results {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .in-shelf {
-    color: #05a100;
-  }
 `
 const ListWrapper = styled.div`
   ul {
@@ -121,6 +97,6 @@ const ListWrapper = styled.div`
   }
 
   .book:hover {
-    background-color: antiquewhite;
+    background-color: black;
   }
 `

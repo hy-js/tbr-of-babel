@@ -16,14 +16,13 @@ export default function Create() {
         <HeaderWrapper>
           <a href='/'>
             <Image
-              src='/empty.jpg'
+              src='/babel-destruction.jpg'
               alt='Empty shelves'
               width={452}
               height={324}
             />
           </a>
           <DescriptionWrapper>
-
             <h1>Create a Shelf</h1>
             <p>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis
@@ -45,15 +44,6 @@ const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  * {
-    color: #0032a1;
-  }
-
-  a {
-    color: #20d152;
-    padding: 0;
-  }
 `
 const HeaderWrapper = styled.div`
   max-width: 600px;

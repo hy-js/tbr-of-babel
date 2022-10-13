@@ -37,16 +37,6 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&display=swap");
 
-.sidebar {
-  width: 25%;
-  height: 25vh;
-  min-height: 200px;
-  overflow: auto;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 5%;
-}
-
 .main {
   height: 200vh;
   min-height: 1000px;
@@ -88,7 +78,6 @@ body,
 main {
   margin: 0;
   overscroll-behavior: none;
-  /* transition: var(--transition); */
 }
 
 h1,
@@ -169,7 +158,7 @@ small {
 
 input,
 select {
-  background-color: #f0e8dd;
+  /* background-color: #f0e8dd; */
   display: inline-block;
   padding: 20px 15px;
   font-size: 1.2rem;
