@@ -2,8 +2,9 @@ import Head from "next/head"
 import Image from "next/image"
 
 import { breakpoints } from "../utils/breakpoints"
-import styled, { keyframes } from "styled-components"
+import styled from "styled-components"
 import Searchbar from "@/components/Searchbar"
+
 export default function Create() {
   return (
     <>

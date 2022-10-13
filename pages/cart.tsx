@@ -2,13 +2,13 @@ import Head from "next/head"
 import Image from "next/image"
 
 import { breakpoints } from "../utils/breakpoints"
-import styled, { keyframes } from "styled-components"
-import Searchbar from "@/components/Searchbar"
+import styled from "styled-components"
 import { useContext } from "react"
 import CartContext from "../context/cart/CartContext"
+import { OLBOOK } from "@/lib/types"
 
 export default function Create() {
-  const { cartItems, showHideCart } = useContext(CartContext)
+  const { cartItems, removeItem } = useContext(CartContext)
 
   return (
     <>
@@ -41,12 +41,11 @@ export default function Create() {
             <>
               <ListWrapper>
                 <ul className='booklist'>
-                  {cartItems.map((book) => (
+                  {cartItems.map((book: OLBOOK) => (
                     <li
                       key={book.key}
                       className='book'
-                      // onClick={() => handleAdd(book.key)}
-                      onClick={() => addToCart(book.key)}>
+                      onClick={() => removeItem(book.key)}>
                       <h4>{book.author_name?.[0]}</h4>
                       <h2>{book.title}</h2>
                     </li>

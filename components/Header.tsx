@@ -2,11 +2,10 @@ import Link from "next/link"
 import { AnimateSharedLayout, motion } from "framer-motion"
 import { useRouter } from "next/dist/client/router"
 import { isActiveLink } from "../lib/utils"
-import styled, { keyframes } from "styled-components"
+import styled from "styled-components"
 import { breakpoints } from "../utils/breakpoints"
 import { useContext } from "react"
 import CartContext from "../context/cart/CartContext"
-import CartItem from "./CartItem"
 
 const links: { name: string; href: string }[] = [
   {

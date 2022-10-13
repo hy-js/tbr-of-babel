@@ -1,30 +1,13 @@
 import { useEffect, useState } from "react"
 import useDebounce from "../hooks/useDebounce"
-import styled, { keyframes } from "styled-components"
+import styled from "styled-components"
 
-import Image from "next/image"
 import { OLBOOK } from "../lib/types"
 
 // Context
 import { useContext } from "react"
 import CartContext from "../context/cart/CartContext"
 import Link from "next/link"
-
-interface Books {
-  books: {
-    id: string
-    ISBN: string
-    OLkey: string
-    status: string
-
-    title: string
-    author: string
-
-    cover: string
-    publishedYear: string
-    pages: string
-  }[]
-}
 
 const Searchbar = () => {
   // Search
@@ -52,22 +35,6 @@ const Searchbar = () => {
       fetchData()
     }
   }, [debouncedSearch])
-
-  // Add to Shelf
-  const [shelf, setShelf] = useState<OLBOOK[]>([])
-
-  // const handleAdd = (key: string) => {
-  //   console.log(key)
-  //   // Move from books to shelf
-  //   const book = books.find((book) => book.key === key)
-  //   if (book) {
-  //     // make sure not already in shelf
-  //     if (!shelf.find((book) => book.key === key)) {
-  //       setShelf([...shelf, book])
-  //     }
-  //     setBooks(books.filter((book) => book.key !== key))
-  //   }
-  // }
 
   const { cartItems, addToCart } = useContext(CartContext)
 
@@ -101,7 +68,6 @@ const Searchbar = () => {
                   <li
                     key={book.key}
                     className='book'
-                    // onClick={() => handleAdd(book.key)}
                     onClick={() => addToCart(book)}>
                     <h4>{book.author_name?.[0]}</h4>
                     <h2>{book.title}</h2>
@@ -114,11 +80,10 @@ const Searchbar = () => {
         <hr />
         <ListWrapper>
           <ul>
-            {cartItems.map((book) => (
+            {cartItems.map((book: OLBOOK) => (
               <li
                 key={book.key}
                 className='book'
-                // onClick={() => handleAdd(book.key)}
                 onClick={() => addToCart(book.key)}>
                 <h4>{book.author_name?.[0]}</h4>
                 <h2>{book.title}</h2>
